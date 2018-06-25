@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {GeocodeService} from './Services/geocode.service'
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+  constructor(
+    private geocode: GeocodeService
+  ) {}
+  ngOnInit(): void {
+    this.geocode.init()
+  }
 }
+
+// AIzaSyDaF6nB1RDzyY9JgCVtDQfOTRchV-Gthvw
