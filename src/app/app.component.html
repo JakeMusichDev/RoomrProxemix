@@ -1,9 +1,18 @@
-<div class="block"> Proxemics Prototype </div>
+<div class="app-container">
+  <h1 class="block title"> Proxemics Prototype </h1>
 
-<div class="block">
-  <app-origin-input></app-origin-input>
+
+  <div class="double-block">
+    <div class="input-container">
+      <app-origin-input></app-origin-input>
+    </div>
+    <div class="map-container">
+      <div id='map' class="block map"></div>
+    </div>
+  </div>
+  
+  <div class="block" *ngIf='destinations' >
+    <app-distance-list-container [destinations]='destinations' ></app-distance-list-container>
+  </div>
 </div>
 
-<div class="block" *ngIf='destinations' >
-  <app-distance-list-container [destinations]='destinations' ></app-distance-list-container>
-</div>

@@ -7,18 +7,26 @@ import { GeocodeService } from '../../Services/geocode.service'
   styleUrls: ['./origin-input.component.scss']
 })
 export class OriginInputComponent implements OnInit {
-  private values: string;
-  constructor() { }
+  private value: string;
+  private address: string;
+  private city: string;
+  private state: string;
+
+  constructor(
+    private geocode:GeocodeService
+  ) { }
 
   ngOnInit() {
   }
 
-  private onKey(value:string) {
-    this.values = value;
-  }
-
   private onSubmit(event) {
-
+    const origin = {
+      street: this.address,
+      city: this.city, 
+      state: this.state
+    }
+    
+    this.geocode.initSearch(origin)
   }
 
 }

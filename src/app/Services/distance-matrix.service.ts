@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { landmarks } from '../../data/landmarks'
 import { Subject } from "rxjs/Subject";
+import {MapService } from './map.service'
 
 declare var google;
 
@@ -9,17 +10,20 @@ export class DistanceMatrixService {
   private destinations: Array<any> = [];
   public distances_source = new Subject<Array<any>>();
 
-  constructor() { }
+  constructor(
+    private map: MapService
+  ) { }
 
   public initDistanceMatrix = (originCoords) => {
-    this.getDistanceData()
+    this.getLandmarkLatLong()
     this.getDistanceBetweenPoints(originCoords)
   }
 
-  public getDistanceData = () => {
+  public getLandmarkLatLong = () => {
     for(let i = 0; i < landmarks.length; i++) {
       this.getLatLong(landmarks[i])
     }
+    this.map.addDestinationMarkers(this.destinations)
   }
 
   private getLatLong = (destination) => {
@@ -28,7 +32,7 @@ export class DistanceMatrixService {
   }
 
   public getDistanceBetweenPoints = (origin) => {  
-    var service = new google.maps.DistanceMatrixService(); 
+    var service = new google.maps.DistanceMatrixService();
     var distanceRequest = {
       origins: [origin],
       destinations: this.destinations,
@@ -42,7 +46,7 @@ export class DistanceMatrixService {
     if(status === 'OK') {
       let distanceData = this.organizeResults(response)
       let filteredDistanceData = distanceData.filter(x => x.data.status === 'OK')
-      this.parseDistances(filteredDistanceData)
+      this.sortDistances(filteredDistanceData)
     } else {
       alert('error getting distances')
     }
@@ -59,10 +63,11 @@ export class DistanceMatrixService {
     return arr 
   }
 
-  private parseDistances = (distances) => {  
+  private sortDistances = (distances) => {  
     let sortedDists = distances.sort( (a, b) => { 
       return a.data.duration.value - b.data.duration.value 
     })
+
     this.registerDistanceArray(sortedDists)
   }
 

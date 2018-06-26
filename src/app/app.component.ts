@@ -20,7 +20,7 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
-    this.geocode.init()
+    // this.geocode.init()
     this.subscribe()
   }
 

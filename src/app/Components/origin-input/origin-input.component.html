@@ -1,16 +1,29 @@
-<div>
-  Add Origin:
+<form>
+  <h3>Origin</h3>
+
+
   <div>
-    <input #address type='text' (keyup)="onKey(address.value)">
+    <label for="address">Address</label>
+    <input type='text' [(ngModel)]="address" required name="address">
   </div>
-  <button type="submit" (click)="onSubmit($event)" >Get Attractions</button>
-  <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Favorite food" value="Sushi">
-      </mat-form-field>
-    
-      <mat-form-field class="example-full-width">
-        <textarea matInput placeholder="Leave a comment"></textarea>
-      </mat-form-field>
-    </form>
-</div>
+  <div>
+    <label for="city">City</label>
+    <input type='text' [(ngModel)]="city" required name="city">
+  </div>
+  <div>
+    <label for="state">State</label>
+    <input type='text' [(ngModel)]="state" required name="state">
+  </div>
+  <div>
+    <h5>Mode of Travel</h5>
+    <label for="travelBus">Bus</label>
+    <label for="travelTrain">Train</label>
+    <label for="travelWalk">Walk</label>
+
+    <input type='radio' [(ngModel)]="travel" required name="travelBus">
+    <input type='radio' [(ngModel)]="travel" required name="travelTrain">
+    <input type='radio' [(ngModel)]="travel" required name="travelWalk">
+  </div>
+
+  <button type="submit" (click)="onSubmit($event)">Get Attractions</button>
+</form>

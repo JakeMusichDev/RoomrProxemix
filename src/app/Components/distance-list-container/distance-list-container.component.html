@@ -1,8 +1,8 @@
 <div>
-  DESTINATIONS:
+  <h3>Distances to Landmarks</h3>
   <ul>
     <li *ngFor="let destination of destinations" >
-      {{destination.address}}
+      <h5>{{destination.address}}</h5>
         <ul>
           <li>Travel Duration: {{destination.data.duration.text}}</li>
           <li>Distance: {{destination.data.distance.text}}</li>

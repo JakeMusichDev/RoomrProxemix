@@ -1,14 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'
+
 
 import { AppComponent } from './app.component';
+import { OriginInputComponent } from './Components/origin-input/origin-input.component'
+import { DistanceListContainerComponent } from './Components/distance-list-container/distance-list-container.component';
 
 import {GeocodeService} from './Services/geocode.service'
 import {DistanceMatrixService} from './Services/distance-matrix.service';
-import { DistanceListContainerComponent } from './Components/distance-list-container/distance-list-container.component';
-import { OriginInputComponent } from './Components/origin-input/origin-input.component'
+import { MapService } from './Services/map.service'
 
 @NgModule({
   declarations: [
@@ -19,12 +21,14 @@ import { OriginInputComponent } from './Components/origin-input/origin-input.com
   imports: [
     BrowserModule,
     HttpClientModule,
-    MatFormFieldModule,
-    MatInputModule
+    FormsModule
+    // MatFormFieldModule,
+    // MatInputModule
   ],
   providers: [
     GeocodeService,
-    DistanceMatrixService
+    DistanceMatrixService,
+    MapService
   ],
   bootstrap: [AppComponent]
 })
