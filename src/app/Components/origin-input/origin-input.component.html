@@ -1,0 +1,16 @@
+<div>
+  Add Origin:
+  <div>
+    <input #address type='text' (keyup)="onKey(address.value)">
+  </div>
+  <button type="submit" (click)="onSubmit($event)" >Get Attractions</button>
+  <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Favorite food" value="Sushi">
+      </mat-form-field>
+    
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Leave a comment"></textarea>
+      </mat-form-field>
+    </form>
+</div>

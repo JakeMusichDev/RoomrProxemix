@@ -1,0 +1,13 @@
+<div>
+  DESTINATIONS:
+  <ul>
+    <li *ngFor="let destination of destinations" >
+      {{destination.address}}
+        <ul>
+          <li>Travel Duration: {{destination.data.duration.text}}</li>
+          <li>Distance: {{destination.data.distance.text}}</li>
+          <li>{{destination.data.duration.value}}</li>
+        </ul>
+    </li>
+  </ul>
+</div>
