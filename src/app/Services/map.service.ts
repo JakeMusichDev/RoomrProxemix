@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { landmarks } from '../../data/landmarks'
+import { DirectionsService } from '../Services/directions.service'
 
 declare var google;
 
@@ -7,14 +8,15 @@ declare var google;
 export class MapService {
   private map: any;
 
-  constructor() { }
+  constructor(
+    private directions: DirectionsService
+  ) { }
 
   public setMap = (latLng) =>  {
-    this.map = new google.maps.Map(document.getElementById('map'), { center: latLng, zoom: 15})
+    this.map = new google.maps.Map(document.getElementById('map'), { center: latLng, zoom: 14})
     this.addMarker(latLng)
     return this.map
   }
-
 
   public addDestinationMarkers = (destinations) => {
     for (let i = 0; i < destinations.length; i++) {
@@ -22,7 +24,6 @@ export class MapService {
     }
   }
 
-  
   public addMarker = (latLng) => {
     const service = new google.maps.places.PlacesService(this.map);
     const infoWindow = new google.maps.InfoWindow();

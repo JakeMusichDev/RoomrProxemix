@@ -10,6 +10,8 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class AppComponent {
   private destinations: Array<any> = [];
+  private closeDestinations: Array<any> = [];
+
   private destination_subscription: Subscription;
   private loaded: Boolean = false;
 
@@ -20,7 +22,6 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
-    // this.geocode.init()
     this.subscribe()
   }
 
@@ -33,6 +34,7 @@ export class AppComponent {
   }
 
   private handleInput = (destinations) =>  {
-    this.destinations = destinations 
+    this.destinations = destinations
+    this.closeDestinations = [destinations[0], destinations[1], destinations[2]]
   }
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { MapService } from './map.service'
 import { DistanceMatrixService } from './distance-matrix.service'
+import { DirectionsService } from '../Services/directions.service'
 
 import { KEY } from '../../data/key'
 
@@ -12,6 +13,8 @@ declare var google;
 export class GeocodeService {
   private geocodeBaseUrl: string = 'https://maps.googleapis.com/maps/api/geocode/';
   private originLocation: any;
+  private originCoordinates: any;
+
   private arteryAddress = {
     street: '30 Irving Place',
     city: 'New York',
@@ -21,35 +24,33 @@ export class GeocodeService {
   constructor(
     private http: HttpClient,
     private distance: DistanceMatrixService,
-    private map:MapService
+    private map: MapService,
+    private directions: DirectionsService
   ) { }
 
   public initSearch = (address) => {
-    const url = this.buildCoordURL(address)
-    this.getCoords(url)
+    const url = this.buildOriginCoordURL(address)
+    this.getOriginCoords(url)
   }
 
-  private buildCoordURL = (addressString) =>  {
+  private buildOriginCoordURL = (addressString) =>  {
     let streetSplit = addressString.street.split(" ").map( word => word + '+').join('')
     let citySplit = addressString.city.split(" ").map( word => word + '+').join('')
     let state =  addressString.state
-    let requestString = 'json?address=' + streetSplit + ',' + citySplit + ",+" + state  + '&key=' + KEY 
-    console.log('====================================');
-    console.log("Request String ", requestString);
-    console.log('====================================');
+    let requestString = 'json?address=' + streetSplit + ',' + citySplit + ",+" + state  + '&key=' + KEY
     return this.geocodeBaseUrl + requestString
   }
 
-  private getCoords = (url:string) => {
-    this.http.get(url)
-      .subscribe( data => this.getLocations(data) )
+  private getOriginCoords = (url:string) => {
+    this.http.get(url).subscribe( data => this.getLocations(data) )
   } 
 
   private getLocations = (data:any) => {
-    this.originLocation = data.results[0].geometry.location
-    let coords = new google.maps.LatLng(this.originLocation.lat, this.originLocation.lng)
-    this.map.setMap(coords)
-    this.distance.initDistanceMatrix(coords)
+    this.originLocation = data.results[0]
+    this.originCoordinates = new google.maps.LatLng(this.originLocation.geometry.location.lat, this.originLocation.geometry.location.lng)
+    this.directions.setOrigin(this.originLocation)
+    this.map.setMap(this.originCoordinates)
+    this.distance.initDistanceMatrix(this.originCoordinates)
   }
 
   private setMap = (latLng) =>  {

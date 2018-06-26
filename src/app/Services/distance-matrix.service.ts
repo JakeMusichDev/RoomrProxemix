@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { landmarks } from '../../data/landmarks'
 import { Subject } from "rxjs/Subject";
 import {MapService } from './map.service'
+import { debug } from 'util';
 
 declare var google;
 
@@ -15,7 +16,9 @@ export class DistanceMatrixService {
   ) { }
 
   public initDistanceMatrix = (originCoords) => {
-    this.getLandmarkLatLong()
+    if (this.destinations.length < 1) {
+      this.getLandmarkLatLong()
+    }
     this.getDistanceBetweenPoints(originCoords)
   }
 
@@ -31,33 +34,33 @@ export class DistanceMatrixService {
     this.destinations.push(destLatLong)
   }
 
-  public getDistanceBetweenPoints = (origin) => {  
+  public getDistanceBetweenPoints = (origin) => {
+    var selectedMode = document.getElementById('travel-mode') as HTMLInputElement;
     var service = new google.maps.DistanceMatrixService();
     var distanceRequest = {
       origins: [origin],
       destinations: this.destinations,
-      travelMode: 'TRANSIT',
+      travelMode: selectedMode.value,
     }
-
     service.getDistanceMatrix( distanceRequest, this.callback )
   }
 
   private callback = (response, status) => {
     if(status === 'OK') {
-      let distanceData = this.organizeResults(response)
+      let distanceData = this.organizeResults(response, landmarks)
       let filteredDistanceData = distanceData.filter(x => x.data.status === 'OK')
       this.sortDistances(filteredDistanceData)
     } else {
-      alert('error getting distances')
+      console.log('Error ', response, status);
     }
   }
 
-  private organizeResults = (response) => {
+  private organizeResults = (response, landmarks) => {
     let destAddresses = response.destinationAddresses
     let rows = response.rows[0].elements
     let arr = []
     for(let i = 0; i < destAddresses.length; i++) {
-      let item = { address: destAddresses[i], data: rows[i]  }
+      let item = { name: landmarks[i].name, address: destAddresses[i], data: rows[i]  }
       arr.push(item)
     }
     return arr 
@@ -73,9 +76,6 @@ export class DistanceMatrixService {
 
 
   private registerDistanceArray = distance_array => {
-    console.log('====================================');
-    console.log('CHANGE ', distance_array);
-    console.log('====================================');
     this.distances_source.next(distance_array)
   }
 

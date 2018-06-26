@@ -1,29 +1,29 @@
 <form>
-  <h3>Origin</h3>
+  <h3 class="title">Origin</h3>
 
 
   <div>
-    <label for="address">Address</label>
+    <label for="address">Address</label> <br>
     <input type='text' [(ngModel)]="address" required name="address">
   </div>
   <div>
-    <label for="city">City</label>
+    <label for="city">City</label> <br>
     <input type='text' [(ngModel)]="city" required name="city">
   </div>
   <div>
-    <label for="state">State</label>
+    <label for="state">State</label> <br>
     <input type='text' [(ngModel)]="state" required name="state">
   </div>
   <div>
     <h5>Mode of Travel</h5>
-    <label for="travelBus">Bus</label>
-    <label for="travelTrain">Train</label>
-    <label for="travelWalk">Walk</label>
-
-    <input type='radio' [(ngModel)]="travel" required name="travelBus">
-    <input type='radio' [(ngModel)]="travel" required name="travelTrain">
-    <input type='radio' [(ngModel)]="travel" required name="travelWalk">
+    <select id="travel-mode">
+        <option value="DRIVING">Driving</option>
+        <option value="WALKING">Walking</option>
+        <option value="BICYCLING">Bicycling</option>
+        <option value="TRANSIT">Transit</option>
+    </select>
   </div>
 
-  <button type="submit" (click)="onSubmit($event)">Get Attractions</button>
+    <br>
+  <button type="submit" (click)="onSubmit($event)">Generate</button>
 </form>
