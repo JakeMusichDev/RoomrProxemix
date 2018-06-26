@@ -15,5 +15,3 @@ export class AppComponent {
     this.geocode.init()
   }
 }
-
-// AIzaSyDaF6nB1RDzyY9JgCVtDQfOTRchV-Gthvw
