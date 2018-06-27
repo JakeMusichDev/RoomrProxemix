@@ -1,4 +1,21 @@
+.form {
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
 .title {
   color: #D4ADCF;
   margin: 5px;
+}
+
+.input-block {
+  // border: 1px solid goldenrod;
+  width: 50%;
+  height: auto;
+  margin-bottom: 2px;
+}
+
+.button {
+  width: 25%;
 }
