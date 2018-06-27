@@ -1,0 +1,29 @@
+<form class="form">
+  <h3 class="title">Origin</h3>
+
+
+  <div class="input-block">
+    <label for="address">Address</label> <br>
+    <input type='text' [(ngModel)]="address" required name="address">
+  </div>
+  <div class="input-block">
+    <label for="city">City</label> <br>
+    <input type='text' [(ngModel)]="city" required name="city">
+  </div>
+  <div class="input-block">
+    <label for="state">State</label> <br>
+    <input type='text' [(ngModel)]="state" required name="state">
+  </div>
+  <div class="input-block">
+    <h5>Mode of Travel</h5>
+    <select id="travel-mode">
+        <option value="DRIVING">Driving</option>
+        <option value="WALKING">Walking</option>
+        <option value="BICYCLING">Bicycling</option>
+        <option value="TRANSIT">Transit</option>
+    </select>
+  </div>
+
+    <br>
+  <button class="button" type="submit" (click)="onSubmit($event)">Generate</button>
+</form>

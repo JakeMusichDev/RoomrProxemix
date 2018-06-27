@@ -1,0 +1,13 @@
+<div>
+  <h3 class="title">All Distances to Landmarks</h3>
+  <div>
+    <div *ngFor="let destination of destinations" >
+      <h4 class="name">{{destination.name}}</h4>
+      <ul class="list">
+        <li>Address: {{destination.address}}</li>
+        <li>Duration: {{destination.data.duration.text}}</li>
+        <li>Distance: {{destination.data.distance.text}}</li>
+      </ul>
+    </div>
+  </div>
+</div>

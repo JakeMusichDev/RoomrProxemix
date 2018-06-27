@@ -1,6 +1,21 @@
-<div>
-  Proxemics Prototype 
-</div>
-<div id='map'>
+<div class="app-container">
+  <h1 class="block title"> Proxemics Prototype </h1>
+
+  <div class="double-block">
+    <div class="input-container">
+      <app-origin-input></app-origin-input>
+    </div>
+    <div class="map-container">
+      <div id='map' class="map"></div>
+    </div>
+  </div>
+
+  <div class="block" *ngIf='destinations'>
+    <app-destination-container [destinations]='closeDestinations' ></app-destination-container>
+  </div>
   
+  <div class="block" *ngIf='destinations'>
+    <app-distance-list-container [destinations]='destinations' ></app-distance-list-container>
+  </div>
 </div>
+
